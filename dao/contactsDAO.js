@@ -1,34 +1,36 @@
-import mongodb from "mongodb";
-const ObjectId = mongodb.ObjectId;
+// import mongodb from "mongodb";
+// const ObjectId = mongodb.ObjectId;
 
 let contacts;
 
 export default class ContactsDAO {
-    static async injectDB(conn) {
-        if (contacts) {
-            return;
-        }
-        try {
-            contacts = await conn.db(process.env.TEQUILAAPP_NS)
-                .collection('contacts');
-        } catch (e) {
-            console.error(`Unable to connect in ContactsDAO: ${e}`);
-        }
-    }
+    // static async injectDB(conn) {
+    //     if (contacts) {
+    //         return;
+    //     }
+    //     try {
+    //         contacts = await conn.db(process.env.TEQUILAAPP_NS)
+    //             .collection('contacts');
+    //     } catch (e) {
+    //         console.error(`Unable to connect in ContactsDAO: ${e}`);
+    //     }
+    // }
     static async addContact(name, date){
         try {
           const contactDoc = {
-              name: contact.name,
+            name: name,
+            //   name: contact.name,
             //   user_id: user._id,
             //   meal: meal,
             //   difficulty: difficulty,
             //   dietary: dietary,
             //   picture: picture,
-              content: content,
+            //   content: content,
             //   recipe_name: recipe_name,
-              date:date
+              date: date
           }
-          return await contacts.insertOne(contactDoc);
+        //   return await contacts.insertOne(contactDoc);
+        return contactDoc;
       }
       catch(e) {
           console.error(`Unable to post contact: ${e}`)
