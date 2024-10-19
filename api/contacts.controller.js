@@ -4,26 +4,25 @@ export default class ContactsController{
     static async apiPostContact(req, res, next){
         console.log('in api');
         try{
-            const name = req.body.name;
-            // const userInfo = {
-            //     name: req.body.name,
-            //     _id:req.body.user_id
-            // }
-            const date = new Date();
+            const contactData = {
+                firstName: req.body.firstname || 'no name',  // Fallback to an empty string if undefined
+                lastName: req.body.lastName || 'no last name',    // Fallback to an empty string if undefined
+                email: req.body.email || 'no email',          // Fallback to an empty string if undefined
+                phoneNumber: req.body.phone || 'no phone number', // Fallback to an empty string if undefined
+                countryCode: req.body.countryCode || 'no country code',
+                dob: req.body.dob,
+                countryOfResidence: req.body.countryOfResidence || 'no country',
+                zipCode: req.body.zipCode, 
+                inquiry: req.body.inquiry,
+                isLegalDrinkingAge: req.body.isLegalDrinkingAge,
+                receiveMarketing: req.body.receiveMarketing
+            };
             const contactsResponse = await ContactsDAO.addContact(
-                // recipeId,
-                // userInfo,
-                name,
-                date
+                contactData
             );
-            var {error} = contactsResponse;
-            console.log(name);
-            if(error){
-                res.status(500).json({error:"Unable to post contact"});
-            } else{
-                res.json({status:"We will reach out to you asap"});
-            }
-        } catch(e){
+            console.log("response " + contactsResponse);
+            res.json({status:"We will reach out to you asap"});
+        }  catch(e){
             res.status(500).json({error:e.message});
         }
     }
